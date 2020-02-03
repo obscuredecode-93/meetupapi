@@ -21,6 +21,7 @@ class RsvpList extends React.Component{
       }
     }).then((response) => {
       this.setState({rsvp: response.data})
+      console.log(this.state.rsvp)
     })
   }
 
@@ -34,13 +35,16 @@ class RsvpList extends React.Component{
           <ListItem>
           <Button
           variant="contained"
-          color="secondary" >Back to home</Button>
+          color="secondary" 
+          onClick = { () => {
+            this.props.history.push('/')
+            }}>Back to home</Button>
           </ListItem>
         { 
           this.state.rsvp.map((element,index) =>{ 
           const memberName = element.member.name;
           const thumb_link = element.member.photo?element.member.photo.thumb_link:null;
-          const memberType = element.member.photo ? element.member.photo.type:null;
+          const eventResponse = element.response;
           return (
               <ListItem key={ index}>
                 <ListItemAvatar>
@@ -48,7 +52,7 @@ class RsvpList extends React.Component{
                 </ListItemAvatar> 
                 <ListItemText 
                   primary={<Typography variant="h5">{memberName}</Typography>} 
-                  secondary={<Typography variant="body1">{memberType}</Typography>} 
+                  secondary={<Typography variant="body1">{eventResponse === "yes"? "going":"waitlist"}</Typography>} 
                 />
                 <Divider />
               </ListItem>
