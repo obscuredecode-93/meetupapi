@@ -1,6 +1,5 @@
 //Imports
-import './EventList.css';
-
+//Imports
 import { useContext,useState } from 'react';
 import { __RouterContext } from 'react-router';
 
@@ -12,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Container, Link, Chip,Button,Box, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,CircularProgress } from '@material-ui/core';
+import { Container, Link, Chip,Button,Box, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails } from '@material-ui/core';
 
 //Writing the Hook for the styles that we are going to use
 const useStyles = makeStyles(theme => ({
@@ -64,11 +63,16 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '3%',
   },
   rsvpButton:{
-    marginBottom: '3%'
+    marginBottom: '3%',
+    width: "41%",
+    marginLeft: '261px',
   },
   itemHeader:{
     display:'flex',
     width:'100%'
+  },
+  standardMargin:{
+    margin:'10px'
   }
 }));
 
@@ -80,13 +84,13 @@ const useReactRouter = () => {
 
 export default function AlignItemsList(props) {
   const classes = useStyles();
-  const [currentId, setCurrentId,isLoading] = useState(0);
+  const [currentId, setCurrentId] = useState(0);
   const events = props.events;
   const {history} = useReactRouter();
   return (
     <Container className={classes.root} fixed >
-      <Typography variant="h3"> Welcome to the Events page!</Typography>
-      <Typography variant="body1">Here you can find the list of events CallEmAll is organizing, Please <Typography variant="button">CLICK</Typography> on the button to get to know who'll be attending :</Typography>
+      <Typography variant="h3" className={classes.standardMargin}> Welcome to the Events page!</Typography>
+      <Typography variant="body1" className={classes.standardMargin}>Here you can find the list of events CallEmAll is organizing, Please <Typography variant="button">CLICK</Typography> on the button to get to know who'll be attending :</Typography>
       <Divider light />
       <List>
         { 
@@ -122,7 +126,7 @@ export default function AlignItemsList(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                   className={classes.root}>
-                    <Typography className={classes.heading}>Click here for more info</Typography>
+                    <Typography variant="h6">Click here for more info</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <Typography dangerouslySetInnerHTML={{__html: item.description}}>
