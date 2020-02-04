@@ -1,4 +1,9 @@
+//Imports
 import './EventList.css';
+
+import { useContext,useState } from 'react';
+import { __RouterContext } from 'react-router';
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -8,10 +13,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Container, Link, Chip,Button,Box, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails } from '@material-ui/core';
-import { useContext,useState } from 'react';
-import { __RouterContext } from 'react-router';
-import { palette } from '@material-ui/system';
-import { renderHTML } from 'react-render-html';
+
+//Writing the Hook for the styles that we are going to use
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '100%',
@@ -46,16 +49,22 @@ const useStyles = makeStyles(theme => ({
   },
   rsvpComponents:{
       width:'31%',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: theme.palette.background.default,
+      padding: '1%',
+      marginBottom: '1%',
+      borderRadius: '4px',
   },
   rsvpCount:{
     fontSize: '12px',
     float: 'right',
-    marginRight: '26%',
+    marginLeft:'70%',
+    maxWidth:'30%',
     marginBottom: '3%',
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
+  rsvpButton:{
+    marginBottom: '3%'
   },
   itemHeader:{
     display:'flex',
@@ -63,20 +72,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 const useReactRouter = () => {
-    const routerContext = useContext(__RouterContext);
-    return routerContext;
+  const routerContext = useContext(__RouterContext);
+  return routerContext;
 }
 
 export default function AlignItemsList(props) {
   const classes = useStyles();
   const [currentId, setCurrentId] = useState(0);
   const events = props.events;
-  const { history, location, match } = useReactRouter();
-  console.log(events);
+  const {history} = useReactRouter();
   return (
     <Container className={classes.root} fixed >
-        <List>
+      <Typography variant="h3"> Welcome to the Events page!</Typography>
+      <Typography variant="body1">Here you can find the list of events CallEmAll is organizing, Please <Typography variant="button">CLICK</Typography> on the button to get to know who'll be attending :</Typography>
+      <Divider light />
+      <List>
         { 
         events.map((item,index) => (
                 <ListItem  key={index}  className={classes.item}>
@@ -91,8 +103,8 @@ export default function AlignItemsList(props) {
                         }
                     />
                     <Box className={classes.rsvpComponents}>
-                    <Chip className={classes.rsvpCount}  label={"RSVP" + item.yes_rsvp_count + "/" + item.rsvp_limit} style={{ fontSize: '12px' }}></Chip>
-                    <Button style={{ alignItems:"center" ,justifyContent:"left"}} 
+                    <Chip className={classes.rsvpCount}  label={item.yes_rsvp_count + "/" + item.rsvp_limit} style={{ fontSize: '12px' }}></Chip>
+                    <Button className={classes.rsvpButton} style={{ alignItems:"center" ,justifyContent:"left"}} 
                         variant="contained" 
                         color="secondary"
                         onClick = {() => {

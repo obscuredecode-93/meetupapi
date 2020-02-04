@@ -10,10 +10,13 @@ class RsvpList extends React.Component{
     this.state = {id: null , rsvp:[]}
   }
   async componentDidMount(){
+    if(!this.props.history.location.state)  
+    {this.props.history.push("/")
+      return null;
+  };
     const currentId = this.props.history.location.state.currentId
     this.setState({ id: currentId, numberonElements:7 });
     
-    if(!currentId) return <Redirect to="/"/>;
     await meetup.get(`https://api.meetup.com/reactjs-dallas/events/${currentId}/rsvps`,{
       params: {
         sign:'true',
