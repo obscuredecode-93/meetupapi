@@ -28,7 +28,10 @@ class RsvpList extends React.Component{
       }
     }).then((response) => {
       this.setState({rsvp: response.data,isLoading: false})
-    })
+    }).catch((error) => {
+      console.log(error);
+      this.props.history.push("/error");
+    });
   }
 
   render(){
