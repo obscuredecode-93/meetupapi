@@ -13,7 +13,7 @@ class RsvpList extends React.Component{
     this.state = {id: null , rsvp:[],isLoading:true}
   }
   async componentDidMount(){
-    if(!this.props.history.location.state)  
+    if(!this.props.history.location.state.eventName)  
     {
       this.props.history.push("/")
       return null;
@@ -35,6 +35,7 @@ class RsvpList extends React.Component{
     if(!this.state.rsvp){
       return null;
     }
+    const eventName = this.props.history.location.state.eventName;
     return(
       <React.Fragment>
         <List className="root">
@@ -48,6 +49,7 @@ class RsvpList extends React.Component{
           </ListItem>
           <ListItem>
             { this.state.isLoading? <CircularProgress /> : null}
+          <Typography variant="h4">RSVP List for {eventName} </Typography>
           </ListItem>
           { 
             this.state.rsvp.map((element,index) =>{ 

@@ -112,7 +112,7 @@ export default function AlignItemsList(props) {
                         variant="contained" 
                         color="secondary"
                         onClick = {() => {
-                            history.push({pathname:'/rsvp', state: {currentId: item.id}});
+                            history.push({pathname:'/rsvp', state: {currentId: item.id,eventName: item.name}});
                             setCurrentId(currentId)
                         }}  
                         >
