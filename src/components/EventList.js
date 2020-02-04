@@ -1,7 +1,6 @@
 //Imports
 import { useContext,useState } from 'react';
 import { __RouterContext } from 'react-router';
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -94,51 +93,61 @@ export default function AlignItemsList(props) {
       <List>
         { 
         events.map((item,index) => (
-                <ListItem  key={index}  className={classes.item}>
-                  <div className={classes.itemHeader}>
-                    <ListItemText className={classes.textLink}
-                    style = {{
-                        justifyContent  : 'center'
-                    }}
-                        primary= { <Link href={item.link} className={classes.block} > <ListItemText primary={item.name} /></Link>}
-                        secondary={
-                            <React.Fragment>
-                              <Typography  variant="body2" label= {item.group.name} ><Box fontWeight="fontWeightMedium">Organizer:</Box>{item.group.name}</Typography>
-                              <Typography variant="body2"><Box fontWeight="fontWeightMedium">Address:</Box>{item.venue.address_1}</Typography>
-                            </React.Fragment>
-                        }
-                    />
-                    <Box className={classes.rsvpComponents}>
-                    <Chip className={classes.rsvpCount}  label={item.yes_rsvp_count + "/" + item.rsvp_limit} style={{ fontSize: '12px' }}></Chip>
-                    <Button className={classes.rsvpButton} style={{ alignItems:"center" ,justifyContent:"left"}} 
-                        variant="contained" 
-                        color="secondary"
-                        onClick = {() => {
-                            history.push({pathname:'/rsvp', state: {currentId: item.id,eventName: item.name}});
-                            setCurrentId(currentId)
-                        }}  
-                        >
-                        Go to RSVP Details
-                    </Button>
-                    </Box>
-                    </div>
-                 <ExpansionPanel>
-                  <ExpansionPanelSummary 
-                  expandIcon={ <ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  className={classes.root}>
-                    <Typography variant="h6">Click here for more info</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Typography dangerouslySetInnerHTML={{__html: item.description}}>
-                      </Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel> 
-                </ListItem>
-        ))}
-        <Divider variant="inset" component="li" />
-        </List>
-    </Container>
+          <ListItem  key={index}  className={classes.item}>
+            <div className={classes.itemHeader}>
+              <ListItemText className={classes.textLink}
+                style = {{
+                  justifyContent  : 'center'
+                }}
+                primary= { 
+                  <Link href={item.link} className={classes.block} > 
+                    <ListItemText primary={item.name} />
+                  </Link>
+                }
+                secondary={
+                  <React.Fragment>
+                    <Typography  variant="body2" label= {item.group.name} ><Box fontWeight="fontWeightMedium">Organizer:</Box>{item.group.name}</Typography>
+                    <Typography variant="body2"><Box fontWeight="fontWeightMedium">Address:</Box>{item.venue.address_1}</Typography>
+                  </React.Fragment>
+                }
+              />
+              <Box className={classes.rsvpComponents}>
+                <Chip className={classes.rsvpCount}  
+                  label={item.yes_rsvp_count + "/" + item.rsvp_limit}
+                  style={{ fontSize: '12px' }}
+                />
+                <Button className={classes.rsvpButton} style={{ alignItems:"center" ,justifyContent:"left"}} 
+                  variant="contained" 
+                  color="secondary"
+                  onClick = {
+                    () => 
+                    {
+                      history.push({pathname:'/rsvp', state: {currentId: item.id,eventName: item.name}});
+                      setCurrentId(currentId)
+                    }
+                  }  
+                >
+                Go to RSVP Details
+                </Button>
+              </Box>
+            </div>
+            <ExpansionPanel>
+              <ExpansionPanelSummary 
+                expandIcon={ <ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                className={classes.root}>
+                  <Typography variant="h6">Click here for more info</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography dangerouslySetInnerHTML={{__html: item.description}} />
+              </ExpansionPanelDetails>
+            </ExpansionPanel> 
+          </ListItem>
+        )
+      )}
+      <Divider variant="inset" component="li" />
+    </List>
+  </Container>
   );
 }
