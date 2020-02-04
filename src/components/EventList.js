@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Container, Link, Chip,Button,Box, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails } from '@material-ui/core';
+import { Container, Link, Chip,Button,Box, ExpansionPanel, ExpansionPanelSummary,ExpansionPanelDetails,CircularProgress } from '@material-ui/core';
 
 //Writing the Hook for the styles that we are going to use
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ const useReactRouter = () => {
 
 export default function AlignItemsList(props) {
   const classes = useStyles();
-  const [currentId, setCurrentId] = useState(0);
+  const [currentId, setCurrentId,isLoading] = useState(0);
   const events = props.events;
   const {history} = useReactRouter();
   return (

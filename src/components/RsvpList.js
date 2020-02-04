@@ -1,13 +1,13 @@
 import './RvspList.css';
 import React from 'react';
 import meetup from '../apis/meetup';
-import { withRouter,Redirect } from 'react-router-dom';
-import { List,ListItem,ListItemText, Divider, Typography, ListItemAvatar, Avatar,Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { List,ListItem,ListItemText, Divider, Typography, ListItemAvatar, Avatar,Button,CircularProgress } from '@material-ui/core';
 import { __RouterContext } from 'react-router';
 class RsvpList extends React.Component{
   constructor(props){
     super(props);
-    this.state = {id: null , rsvp:[]}
+    this.state = {id: null , rsvp:[],isLoading:true}
   }
   async componentDidMount(){
     if(!this.props.history.location.state)  
@@ -16,15 +16,14 @@ class RsvpList extends React.Component{
   };
     const currentId = this.props.history.location.state.currentId
     this.setState({ id: currentId, numberonElements:7 });
-    
     await meetup.get(`https://api.meetup.com/reactjs-dallas/events/${currentId}/rsvps`,{
       params: {
         sign:'true',
         photo_host:'public'
       }
     }).then((response) => {
-      this.setState({rsvp: response.data})
-      console.log(this.state.rsvp)
+      this.setState({rsvp: response.data,isLoading: false})
+
     })
   }
 
@@ -43,6 +42,9 @@ class RsvpList extends React.Component{
             this.props.history.push('/')
             }}>Back to home</Button>
           </ListItem>
+          <ListItem>
+            { this.state.isLoading? <CircularProgress /> : null}
+          </ListItem>
         { 
           this.state.rsvp.map((element,index) =>{ 
           const memberName = element.member.name;
@@ -51,7 +53,8 @@ class RsvpList extends React.Component{
           return (
               <ListItem key={ index}>
                 <ListItemAvatar>
-                  {<Avatar alt={memberName} src={thumb_link} />}
+                  {<Avatar alt={memberName} src={thumb_link} onClick={() => console.log(memberName + "clicked!")} >
+                    </Avatar>}
                 </ListItemAvatar> 
                 <ListItemText 
                   primary={<Typography variant="h5">{memberName}</Typography>} 
