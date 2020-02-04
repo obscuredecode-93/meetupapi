@@ -103,7 +103,10 @@ export default function AlignItemsList(props) {
                     }}
                         primary= { <Link href={item.link} className={classes.block} > <ListItemText primary={item.name} /></Link>}
                         secondary={
-                            <Typography  variant="body2" label= {item.group.name} >{item.group.name} - {item.venue.address_1}</Typography>
+                            <React.Fragment>
+                              <Typography  variant="body2" label= {item.group.name} ><Box fontWeight="fontWeightMedium">Organizer:</Box>{item.group.name}</Typography>
+                              <Typography variant="body2"><Box fontWeight="fontWeightMedium">Address:</Box>{item.venue.address_1}</Typography>
+                            </React.Fragment>
                         }
                     />
                     <Box className={classes.rsvpComponents}>
