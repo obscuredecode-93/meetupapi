@@ -1,9 +1,12 @@
 import React from 'react'
+import {useContext,useState} from 'react'
+import { __RouterContext } from 'react-router';
+
 import { Typography, ListItem,List,Link,Button } from '@material-ui/core'
 import  DoneOutlineIcon  from '@material-ui/icons/DoneOutline';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles( theme => ({
         button:{
@@ -11,15 +14,22 @@ const useStyles = makeStyles( theme => ({
         }
     })
 )
+
+const useReactRouter = () => {
+    const routerContext = useContext(__RouterContext);
+    return routerContext;
+}
 export default function Error(props){
     const classes = useStyles();
+    console.log(props)
+    const {history} = useReactRouter();
     return (
         <React.Fragment>
             <Button
             className={classes.button}
             variant="contained"
-            color="secondary" 
-            onClick = { () => <Redirect to="/" />}>
+            color="secondary"
+            onClick={() => history.push("/")} >
                 <ArrowBackIosIcon/>Back to home</Button>
             <Typography variant="h4">We're sorry, looks like something went wrong.</Typography>
             <Typography variant="h6">In the meantime have a look at these great libraries and frameworks that I've used to create this:</Typography>
