@@ -3,6 +3,7 @@ import React from 'react';
 import meetup from '../apis/meetup';
 import EventList from './EventList';
 import { CircularProgress } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 class App extends React.Component{
   constructor(props){
@@ -11,15 +12,14 @@ class App extends React.Component{
   }
   async componentDidMount(){
     //calling meetup api( Could not find greater than 12 entries so took page limit to be 12)
-    await meetup.get('https://api.meetup.com/reactjs-dallas/events', {
+    await meetup.get('reactjs-dallas/events', {
       params: {
           page:12
       }
       }).then((response) => {
         this.setState({ events : response.data, isLoading: false});
       }).catch((error) => {
-        console.log(error);
-        this.props.history.push("/error");
+        window.location.href='/error';
       });;
   }
   render(){

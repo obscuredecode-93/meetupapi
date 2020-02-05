@@ -21,7 +21,7 @@ class RsvpList extends React.Component{
     const currentId = this.props.history.location.state.currentId
     this.setState({ id: currentId, numberonElements:7 });
     //get call to meetup api
-    await meetup.get(`https://api.meetup.com/reactjs-dallas/events/${currentId}/rsvps`,{
+    await meetup.get(`reactjs-dallas/events/${currentId}/rsvps`,{
       params: {
         sign:'true',
         photo_host:'public'
